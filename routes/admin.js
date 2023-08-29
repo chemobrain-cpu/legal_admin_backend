@@ -41,25 +41,7 @@ router.post("/adminlogin",
         .withMessage("password is required"),
 ],login)
 
-router.post('/adminsignup',
-[
-    body("secretKey")
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage("fullName is required"),
-    body("password")
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage("password is required"),
-    body("email")
-        .isEmail()
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage("email is required"),
-],signup)
+router.post('/adminsignup',signup)
 
 
 
