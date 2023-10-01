@@ -79,6 +79,8 @@ const adminSchema = new mongoose.Schema({
     }
 })
 
+
+
 const attorneySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     nameOfAttorney: {
