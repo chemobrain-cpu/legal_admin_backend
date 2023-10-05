@@ -13,6 +13,8 @@ let login = require("../controller/admin").login
 let signup = require("../controller/admin").signup
 
 
+
+//case import
 let fetchCase = require("../controller/admin").fetchCase
 
 let fetchCases = require("../controller/admin").fetchCases
@@ -23,7 +25,7 @@ let deleteCase = require('../controller/admin').deleteCase
 
 let getAdminFromJwt = require('../controller/admin').getAdminFromJwt
 
-
+//attorney import
 let fetchAttorney = require("../controller/admin").fetchAttorney
 
 let fetchAttorneys = require("../controller/admin").fetchAttorneys
@@ -32,11 +34,24 @@ let updateAttorney = require('../controller/admin').updateAttorney
 
 let deleteAttorney = require('../controller/admin').deleteAttorney
 
-let newAttorney = require('../controller/admin').newAttorney
+let newAttorney= require('../controller/admin').newAttorney
 
 
+
+//blog import
+let fetchBlog = require("../controller/admin").fetchBlog
+
+let fetchBlogs = require("../controller/admin").fetchBlogs
+
+let updateBlog = require('../controller/admin').updateBlog
+
+let deleteBlog = require('../controller/admin').deleteBlog
+
+let newBlog = require('../controller/admin').newBlog
+
+
+//auth route
 router.get("/adminbytoken", getAdminFromJwt)
-
 router.post("/adminlogin",
 [
     body("email")
@@ -51,17 +66,15 @@ router.post("/adminlogin",
         .isEmpty()
         .withMessage("password is required"),
 ],login)
-
 router.post('/adminsignup',signup)
+
+
 
 
 //cases route
 router.get('/auth/cases',verifyAdmin,fetchCases)
-
 router.get('/auth/cases/:id',verifyAdmin,fetchCase)
-
 router.patch('/auth/case/:id',verifyAdmin,updateCase)
-
 router.delete('/auth/case/:id',verifyAdmin,deleteCase)
 
 
@@ -71,6 +84,17 @@ router.get('/auth/attorneys',verifyAdmin,fetchAttorneys)
 router.get('/auth/attorneys/:id',verifyAdmin,fetchAttorney)
 router.patch('/auth/attorney/:id',verifyAdmin,updateAttorney)
 router.delete('/auth/attorney/:id',verifyAdmin,deleteAttorney)
+
+
+
+
+
+//blog routes
+router.post('/auth/newblog',verifyAdmin,newBlog)
+router.get('/auth/blogs',verifyAdmin,fetchBlogs)
+router.get('/auth/blogs/:id',verifyAdmin,fetchBlog)
+router.patch('/auth/blog/:id',verifyAdmin,updateBlog)
+router.delete('/auth/blog/:id',verifyAdmin,deleteBlog)
 
 
 

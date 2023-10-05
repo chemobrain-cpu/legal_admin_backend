@@ -2,7 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
 const { generateAcessToken } = require('../utils/utils')
-const { Admin, Case, Attorney } = require("../database/databaseConfig");
+const { Admin, Case, Attorney, Blog } = require("../database/databaseConfig");
 const { validationResult } = require("express-validator");
 
 
@@ -304,11 +304,9 @@ module.exports.deleteCase = async (req, res, next) => {
 
 
 //attorneys controller section
-
 module.exports.fetchAttorneys = async (req, res, next) => {
    try {
       let Attorneys = await Attorney.find()
-
       if (!Attorneys) {
          let error = new Error("An error occured")
          return next(error)
@@ -328,7 +326,7 @@ module.exports.fetchAttorneys = async (req, res, next) => {
 
 
 }
-module.exports.fetchAttorney = async (req, res, next)=> {
+module.exports.fetchAttorney = async (req, res, next) => {
    try {
 
       let attorneyId = req.params.id
@@ -351,8 +349,6 @@ module.exports.fetchAttorney = async (req, res, next)=> {
 
    }
 }
-
-
 module.exports.updateAttorney = async (req, res, next) => {
    try {
       let attorneyId = req.params.id
@@ -378,28 +374,26 @@ module.exports.updateAttorney = async (req, res, next) => {
 
       attorney_.about = about || ''
 
-      attorney_.address= address || ''
+      attorney_.address = address || ''
       attorney_.email = email || ''
 
       attorney_.phone = phone || ''
 
       let savedAttorney_ = await attorney_.save()
 
-      if (!savedAttorney_ ) {
+      if (!savedAttorney_) {
          let error = new Error("an error occured on the server")
          return next(error)
       }
 
       return res.status(200).json({
-         response: savedAttorney_ 
+         response: savedAttorney_
       })
    } catch (error) {
       error.message = error.message || "an error occured try later"
       return next(error)
    }
 }
-
-
 module.exports.deleteAttorney = async (req, res, next) => {
    try {
       let attorneyId = req.params.id
@@ -423,8 +417,6 @@ module.exports.deleteAttorney = async (req, res, next) => {
 
 
 }
-
-
 module.exports.newAttorney = async (req, res, next) => {
    try {
       let {
@@ -454,7 +446,7 @@ module.exports.newAttorney = async (req, res, next) => {
          return next(error)
       }
       return res.status(200).json({
-         response:savedAttorney
+         response: savedAttorney
       })
 
    } catch (error) {
@@ -466,8 +458,206 @@ module.exports.newAttorney = async (req, res, next) => {
 
 }
 
+//blogs route
 
 
-Attorney.find().then(data=>{
+//attorneys controller section
+module.exports.fetchBlogs = async (req, res, next) => {
+   console.log('trying to fetch all blog')
+   try {
+      let blogs = await Blog.find()
+
+      if (!blogs) {
+         let error = new Error("An error occured")
+         return next(error)
+      }
+
+      console.log(blogs)
+
+      return res.status(200).json({
+         response: blogs
+      })
+
+   } catch (error) {
+      error.message = error.message || "an error occured try later"
+      return next(error)
+   }
+}
+module.exports.fetchBlog = async (req, res, next) => {
+
+   try {
+      let blogId = req.params.id
+
+      let blog_ = await Blog.findOne({ _id: blogId })
+
+      if (!blog_) {
+         let error = new Error("attorney not found")
+         return next(error)
+      }
+
+      return res.status(200).json({
+         response: {
+            blog_
+         }
+      })
+   } catch (error) {
+      error.message = error.message || "an error occured try later"
+      return next(error)
+
+   }
+}
+
+
+module.exports.updateBlog = async (req, res, next) => {
+   try {
+
+      let blogId = req.params.id
+      //fetching details from the request object
+      let {
+         blog_photo_url,
+         blog_photo_url2,
+         blog_topic,
+         date,
+         numOfView,
+         blog_text,
+         blog_qoute,
+         blog_topic2,
+         blog_text2,
+         blog_video,
+         blog_video_topic,
+         blog_video_text
+      } = req.body
+
+      let blog_ = await Blog.findOne({ _id: blogId })
+
+      if (!blog_) {
+         let error = new Error("attorney not found")
+         return next(error)
+      }
+
+      //update attorney
+      blog_.blog_photo_url = blog_photo_url || ' '
+
+      blog_.blog_topic = blog_topic || ' '
+
+      blog_.date = date || ' '
+
+      blog_.numOfView = numOfView || " "
+
+      blog_.blog_text = blog_text || ' '
+
+      blog_.blog_qoute = blog_qoute || ' '
+
+      blog_.blog_topic2 = blog_topic2 || ' '
+
+      blog_.blog_photo_url2 = blog_photo_url2 || ' '
+
+      blog_.blog_text2 = blog_text2 || ' '
+
+      blog_.blog_video = blog_video || ' '
+
+      blog_.blog_video_topic = blog_video_topic || ' '
+
+      blog_.blog_video_text = blog_video_text || ' '
+
+
+      let savedBlog_ = await blog_.save()
+
+      if (!savedBlog_) {
+         let error = new Error("an error occured on the server")
+         return next(error)
+      }
+
+      return res.status(200).json({
+         response: savedBlog_
+      })
+
+   } catch (error) {
+      error.message = error.message || "an error occured try later"
+      return next(error)
+   }
+}
+
+module.exports.deleteBlog = async (req, res, next) => {
+   try {
+      let blogId = req.params.id
+
+      let blog_ = await Blog.deleteOne({ _id: blogId })
+
+      if (!blog_) {
+         let error = new Error("an error occured")
+         return next(error)
+      }
+      return res.status(200).json({
+         response: {
+            message: 'deleted successfully'
+         }
+      })
+   } catch (error) {
+      error.message = error.message || "an error occured try later"
+      return next(error)
+
+   }
+
+
+}
+
+Blog.find().then(data => {
    console.log(data)
 })
+
+module.exports.newBlog = async (req, res, next) => {
+   try {
+
+      let {
+         blog_photo_url,
+         blog_topic,
+         date,
+         numOfView,
+         blog_text,
+         blog_qoute,
+         blog_topic2,
+         blog_photo_url2,
+         blog_text2,
+         blog_video,
+         blog_video_topic,
+         blog_video_text,
+      } = req.body
+
+      //creating new attorney
+      let newBlog_ = new Blog({
+         _id: new mongoose.Types.ObjectId(),
+         blog_photo_url,
+         blog_topic,
+         date,
+         numOfView,
+         blog_text,
+         blog_qoute,
+         blog_topic2,
+         blog_photo_url2,
+         blog_text2,
+         blog_video,
+         blog_video_topic,
+         blog_video_text,
+
+      })
+
+      let savedBlog = await newBlog_.save()
+
+
+      if (!savedBlog) {
+         let error = new Error("an error occured")
+         return next(error)
+      }
+      return res.status(200).json({
+         response: savedBlog
+      })
+
+   } catch (error) {
+      error.message = error.message || "an error occured try later"
+      return next(error)
+
+   }
+
+
+}

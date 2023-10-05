@@ -105,12 +105,61 @@ const attorneySchema = new mongoose.Schema({
 })
 
 
+//blog model
+const blogSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    blog_photo_url:{
+        type:String
+    },
+    blog_topic:{
+        type:String,
+        required:true
+
+    },
+    date:{
+        type:Date,
+    },
+    numOfView:{
+        type:Number,
+        default:0
+    },
+    blog_text:{
+        type:String,
+        required:true
+    },
+    blog_qoute:{
+        type:String
+    },
+    blog_topic2:{
+        type:String
+    },
+    blog_photo_url2:{
+        type:String
+    },
+    blog_text2:{
+        type:String
+    },
+    blog_video:{
+        type:String
+    },
+    blog_video_topic:{
+        type:String
+    },
+    blog_video_text:{
+        type:String
+    },
+   
+})
+
+
 
 
 let Case = new mongoose.model("case", caseSchema)
 let Admin = new mongoose.model("admin", adminSchema)
 let Attorney = new mongoose.model("attorney", attorneySchema)
+let Blog = new mongoose.model("blog", blogSchema)
 
 module.exports.Case = Case
 module.exports.Admin = Admin
 module.exports.Attorney = Attorney
+module.exports.Blog =  Blog
