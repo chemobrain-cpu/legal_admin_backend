@@ -49,6 +49,20 @@ let deleteBlog = require('../controller/admin').deleteBlog
 
 let newBlog = require('../controller/admin').newBlog
 
+//blog cases import
+
+let fetchBlogCase = require("../controller/admin").fetchBlogCase
+
+let fetchBlogCases = require("../controller/admin").fetchBlogCases
+
+let updateBlogCase = require('../controller/admin').updateBlogCase
+
+let deleteBlogCase = require('../controller/admin').deleteBlogCase
+
+let newBlogCase = require('../controller/admin').newBlogCase
+
+
+
 
 //auth route
 router.get("/adminbytoken", getAdminFromJwt)
@@ -95,6 +109,16 @@ router.get('/auth/blogs',verifyAdmin,fetchBlogs)
 router.get('/auth/blogs/:id',verifyAdmin,fetchBlog)
 router.patch('/auth/blog/:id',verifyAdmin,updateBlog)
 router.delete('/auth/blog/:id',verifyAdmin,deleteBlog)
+
+
+//defining the blog case route
+
+
+router.post('/auth/newblogcase',verifyAdmin,newBlogCase)
+router.get('/auth/blogcases',verifyAdmin,fetchBlogCases)
+router.get('/auth/blogcases/:id',verifyAdmin,fetchBlogCase)
+router.patch('/auth/blogcase/:id',verifyAdmin,updateBlogCase)
+router.delete('/auth/blogcase/:id',verifyAdmin,deleteBlogCase)
 
 
 

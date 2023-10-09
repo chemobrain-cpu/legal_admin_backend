@@ -69,6 +69,7 @@ const caseSchema = new mongoose.Schema({
     }
 })
 
+//defining the admin 
 const adminSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     email: {
@@ -77,10 +78,9 @@ const adminSchema = new mongoose.Schema({
     password: {
         type: String
     }
-})
+})cd lcd
 
-
-
+//defining the attorney model
 const attorneySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     nameOfAttorney: {
@@ -108,47 +108,84 @@ const attorneySchema = new mongoose.Schema({
 //blog model
 const blogSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    blog_photo_url:{
-        type:String
+    blog_photo_url: {
+        type: String
     },
-    blog_topic:{
-        type:String,
-        required:true
+    blog_topic: {
+        type: String,
+        required: true
 
     },
-    date:{
-        type:Date,
+    date: {
+        type: Date,
     },
-    numOfView:{
-        type:Number,
-        default:0
+    numOfView: {
+        type: Number,
+        default: 0
     },
-    blog_text:{
-        type:String,
-        required:true
+    blog_text: {
+        type: String,
+        required: true
     },
-    blog_qoute:{
-        type:String
+    blog_qoute: {
+        type: String
     },
-    blog_topic2:{
-        type:String
+    blog_topic2: {
+        type: String
     },
-    blog_photo_url2:{
-        type:String
+    blog_photo_url2: {
+        type: String
     },
-    blog_text2:{
-        type:String
+    blog_text2: {
+        type: String
     },
-    blog_video:{
-        type:String
+
+
+})
+
+
+//case model
+
+
+
+
+const blogCaseSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    case_photo_url: {
+        type: String
     },
-    blog_video_topic:{
-        type:String
+    case_type: {
+        type: String
     },
-    blog_video_text:{
-        type:String
+    case_topic: {
+        type: String
     },
-   
+    case_text: {
+        type: String
+    },
+    case_attorney: {
+        type: String,
+    },
+    case_duration: {
+        type: String
+    },
+    result_price: {
+        type: String
+    },
+    case_category: {
+        type: String
+    },
+    case_challenge: {
+        type: String
+    },
+    case_legal_strategy: {
+        type: String
+    },
+    result_text: {
+        type: String
+    }
+
+
 })
 
 
@@ -159,7 +196,10 @@ let Admin = new mongoose.model("admin", adminSchema)
 let Attorney = new mongoose.model("attorney", attorneySchema)
 let Blog = new mongoose.model("blog", blogSchema)
 
+let BlogCase = new mongoose.model("blogCase", blogCaseSchema)
+
 module.exports.Case = Case
 module.exports.Admin = Admin
 module.exports.Attorney = Attorney
-module.exports.Blog =  Blog
+module.exports.Blog = Blog
+module.exports.BlogCase =  BlogCase
