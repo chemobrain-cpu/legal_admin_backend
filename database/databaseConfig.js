@@ -78,7 +78,7 @@ const adminSchema = new mongoose.Schema({
     password: {
         type: String
     }
-})cd lcd
+})
 
 //defining the attorney model
 const attorneySchema = new mongoose.Schema({
